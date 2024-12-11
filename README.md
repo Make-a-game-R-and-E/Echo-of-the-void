@@ -13,5 +13,5 @@ This is a demo version of the game 'Echo of the void', in this demo you will hav
 
 **Links**
 
-[Game]([https://elyasafko.itch.io/journey-to-freedom-demo](https://elyasafko.itch.io/echo-of-the-void-demo))
+[Game](https://elyasafko.itch.io/echo-of-the-void-demo)
 
