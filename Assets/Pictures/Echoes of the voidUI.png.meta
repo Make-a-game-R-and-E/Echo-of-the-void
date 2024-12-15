@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 35e99c6a3b618df43b74bf6d8220fdc3
+guid: 8fea69e771609bf4981826488c7bbce7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7414973531395661249
-    second: Gas Mask_0
+      213: 7633853229163641495
+    second: Echoes of the voidUI_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gas Mask_0
+      name: Echoes of the voidUI_0
       rect:
         serializedVersion: 2
-        x: 113
-        y: 90
-        width: 827
-        height: 875
+        x: 0
+        y: 0
+        width: 1280
+        height: 720
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f32ec320cd8b81990800000000000000
-      internalID: -7414973531395661249
+      spriteID: 79a74c7e015e0f960800000000000000
+      internalID: 7633853229163641495
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      Gas Mask_0: -7414973531395661249
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
