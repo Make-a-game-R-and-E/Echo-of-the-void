@@ -1,4 +1,4 @@
-<div dir='rtl' lang='he'>
+![image](https://github.com/user-attachments/assets/92c69600-0fcc-46b2-892a-05a96600d9a2)<div dir='rtl' lang='he'>
 
 # Echoes of the Void
 
@@ -12,7 +12,7 @@
 עם כל צעד, עליהם לאסוף רמזים ולפתור חידות כדי לחשוף את הסוד מאחורי הריק והאסון שאירע בתחנה.
 
 **פלטפורמה:** מחשב רגיל (PC) וקונסולות.
-![](https://github.com/Make-a-game-R-and-E/Echoes-of-the-Void/blob/main/pictures/Echoes%20of%20the%20voidUI.png?raw=true)
+![](https://media.githubusercontent.com/media/Make-a-game-R-and-E/Echo-of-the-void-demo/master/Assets/Pictures/Echoes%20of%20the%20voidUI.png)
 ---
 
 ### רכיבים רשמיים
@@ -140,7 +140,7 @@
 
 קישור: https://store.steampowered.com/app/1353830/Horrors_of_Space/
 
-![](https://github.com/Make-a-game-R-and-E/Echoes-of-the-Void/blob/main/pictures/Horrors%20of%20Space.png?raw=true)
+![](https://media.githubusercontent.com/media/Make-a-game-R-and-E/Echo-of-the-void-demo/master/Assets/Pictures/Horrors%20of%20Space.png)
 
 למה המשחק שלנו טוב שונה/מקורי/מיוחד/טוב יותר:
 המשחק שלנו יותר נותן יותר פוקוס על החשיבה והעבודה הקבצותית מאשר על החלק של ההישרדות נגד אויבים.
@@ -158,7 +158,7 @@
 
 קישור: https://store.steampowered.com/app/2276880/Space_Entity/
 
-![](https://github.com/Make-a-game-R-and-E/Echoes-of-the-Void/blob/main/pictures/Space%20Entity.png?raw=true)
+![](https://media.githubusercontent.com/media/Make-a-game-R-and-E/Echo-of-the-void-demo/master/Assets/Pictures/Space%20Entity.png)
 
 למה המשחק שלנו טוב שונה/מקורי/מיוחד/טוב יותר:
 המשחק שלנו יותר נותן יותר פוקוס על החשיבה והעבודה הקבצותית מאשר על החלק של ההישרדות נגד אויבים.
@@ -177,7 +177,7 @@
 
 קישור: https://store.steampowered.com/app/1756160/Unsafe_Express/
 
-![](https://github.com/Make-a-game-R-and-E/Echoes-of-the-Void/blob/main/pictures/Unsafe%20Express.png?raw=true)
+![](https://media.githubusercontent.com/media/Make-a-game-R-and-E/Echo-of-the-void-demo/master/Assets/Pictures/Unsafe%20Express.png)
 
 למה המשחק שלנו טוב שונה/מקורי/מיוחד/טוב יותר:
 המשחק שלנו יותר נותן יותר פוקוס על החשיבה והעבודה הקבצותית מאשר על החלק של ההישרדות נגד אויבים.
