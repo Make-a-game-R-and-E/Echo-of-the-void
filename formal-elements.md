@@ -1,5 +1,3 @@
-![image](https://github.com/user-attachments/assets/92c69600-0fcc-46b2-892a-05a96600d9a2)<div dir='rtl' lang='he'>
-
 # Echoes of the Void
 
 ### **"Survive the Void, or become one of its echoes."**
