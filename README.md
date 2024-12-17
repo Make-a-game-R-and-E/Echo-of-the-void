@@ -26,7 +26,7 @@ This game have a demo version of 'Echo of the void', in this demo you will have 
 
 
 [דף רכיבים](https://github.com/Make-a-game-R-and-E/Echo-of-the-void-demo/blob/master/formal-elements.md)
-
+[רכיבים דרמטיים](https://github.com/Make-a-game-R-and-E/Echo-of-the-void/blob/master/dramatic-elements.md)
 ---
 
 חברי הצוות:
