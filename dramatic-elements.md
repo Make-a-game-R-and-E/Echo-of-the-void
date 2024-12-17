@@ -104,8 +104,7 @@
 ## עלילה
 
 ### גרף
-![]()
-!()[]
+![](https://media.githubusercontent.com/media/Make-a-game-R-and-E/Echo-of-the-void/master/Assets/Pictures/graph.png)
 ### העלילה
 
 1. **התחלה:** השחקנים מבינים שהם צריכים להגיע לתא החילוץ כדי לברוח מהספינה.
