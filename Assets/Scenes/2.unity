@@ -3105,12 +3105,12 @@ GameObject:
   - component: {fileID: 1514392795}
   - component: {fileID: 1514392794}
   m_Layer: 5
-  m_Name: next room guide
+  m_Name: guide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1514392793
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3127,7 +3127,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -205, y: 346}
+  m_AnchoredPosition: {x: -245.77, y: 346}
   m_SizeDelta: {x: 432.1298, y: 111.7169}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1514392794
@@ -3150,7 +3150,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: If you want to move to the next room, go throught the stairs.
+  m_text: Hey, look at this robot! maybe you can get close to him and talk with him?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
