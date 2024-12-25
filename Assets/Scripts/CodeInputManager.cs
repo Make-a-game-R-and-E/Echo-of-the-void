@@ -1,6 +1,6 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CodeInputManager : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class CodeInputManager : MonoBehaviour
     [SerializeField] float distanceToMove = 2f;
     [SerializeField] GameObject success;
     [SerializeField] GameObject failure;
+    [SerializeField] float secondsToWait = 2f;
     public void CheckCode()
     {
         string enteredCode = passcodeInputField.text;
@@ -38,7 +39,14 @@ public class CodeInputManager : MonoBehaviour
             passcodeInputField.text = "";
             // Perhaps show a "Try Again" message
             failure.SetActive(true);
-            Destroy(failure, 2f);
+            StartCoroutine(HideFailureMessage());
+
         }
+    }
+
+    IEnumerator HideFailureMessage()
+    {
+        yield return new WaitForSeconds(secondsToWait);
+        failure.SetActive(false);
     }
 }
