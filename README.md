@@ -22,6 +22,28 @@ This game have a demo version of 'Echo of the void', in this demo you will have 
 1. Move betweens the rooms of the spaceship.
 2. Find the needed object to get access to the final room.
 3. Leave the spaceship.
+---
+### **Structure:**
+
+#### **Scripts**
+- **Items**
+  - `GasMaskItem.cs`: Manages the gas mask item functionality and interaction logic.
+- **Player**
+  - `PlayerController.cs`: Handles player movement and interactions with the environment.
+- **Riddles**
+  - `CodeInputManager.cs`: Processes code inputs for puzzles.
+  - `PasscodeTrigger.cs`: Triggers actions upon entering correct passcodes.
+- **Rooms**
+  - `Door.cs`: Controls door functionality.
+  - `LetterTrigger.cs`: Manages interactions with letters or notes in the environment.
+- **Scenes**
+  - `LevelLoader.cs`: Handles scene transitions between different levels or rooms.
+  - `ResetScene.cs`: Resets the current scene to its initial state.
+- **UI**
+  - `UIManager.cs`: Manages the user interface, including updates and interactions.
+
+- `GameManager`: Oversees overall game logic and state, ensuring smooth progression.
+
 
 ---
 **Links**
