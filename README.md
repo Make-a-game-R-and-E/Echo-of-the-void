@@ -2,14 +2,17 @@
 
 **Overview:** 
 
-המשחק היינו משחק הישרדותי שיתופי המתרחש בתחנת חלל נטושה על סף תופעה קוסמית מסתורית בשם "הריק". השחקנים מגלמים צוות חוקרים שנלכד בתחנה, ועליהם לגלות את האמת מאחורי האירועים שהתרחשו במקום.
+Echo of the Void is a cooperative survival game set in an abandoned space station on the brink of a mysterious cosmic phenomenon known as "The Void." Players embody a team of researchers trapped within the station and must uncover the truth behind the events that transpired there.
 
-במהלך המשחק, השחקנים חוקרים את התחנה המשתנה כל הזמן תחת השפעת הריק, פותרים חידות, אוספים משאבים, ומתמודדים עם אתגרים פסיכולוגיים שנוצרים מהמצב המנטלי המתדרדר. המשחק שם דגש על שיתוף פעולה ועבודת צוות, כשכל דמות מביאה יכולות ייחודיות החיוניות להישרדות הקבוצה.
+Throughout the game, players explore the constantly changing station under the influence of the Void, solve puzzles, collect resources, and face psychological challenges arising from deteriorating mental states. The game emphasizes cooperation and teamwork, with each character bringing unique abilities essential for the group's survival.
 
-במשחק זה, הבחירות שתעשו ישפיעו על העלילה ועל סוף הסיפור – האם תצליחו לברוח ולהציל את עצמכם, או שתהפכו לעוד "הדים" שנכלאו לנצח בתוך הריק?
+In this game, the choices you make will impact the plot and the story's ending – will you succeed in escaping and saving yourselves, or will you become another "Echo" trapped forever within the Void?
+
 
 **Demo**
+
 This game have a demo version of 'Echo of the void', in this demo you will have to escape the spaceship.
+
 
 
 **Controls:**  
@@ -20,14 +23,15 @@ This game have a demo version of 'Echo of the void', in this demo you will have 
 2. Find the needed object to get access to the final room.
 3. Leave the spaceship.
 
+---
 **Links**
 
 [Game](https://elyasafko.itch.io/echo-of-the-void)
 
 
-[דף רכיבים](https://github.com/Make-a-game-R-and-E/Echo-of-the-void-demo/blob/master/formal-elements.md)
+[Component Page](https://github.com/Make-a-game-R-and-E/Echo-of-the-void-demo/blob/master/formal-elements.md)
 
-[רכיבים דרמטיים](https://github.com/Make-a-game-R-and-E/Echo-of-the-void/blob/master/dramatic-elements.md)
+[Dramatic Components](https://github.com/Make-a-game-R-and-E/Echo-of-the-void/blob/master/dramatic-elements.md)
 
 ---
 
