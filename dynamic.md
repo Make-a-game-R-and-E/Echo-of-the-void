@@ -12,8 +12,7 @@
    - Computers or letters are placed in a side room, allowing players to discover new information by exploring the map before interacting with the robot.
 2. **In-Room Placement**:
    - Items are scattered throughout the room to make it engaging and introduce players to the water mechanics and map layout.
-![]()
-!()[]
+![](https://media.githubusercontent.com/media/Make-a-game-R-and-E/Echo-of-the-void/master/Assets/Pictures/room_map.png)
 
 ## Behaviors
 - **Non-Player Character (NPC)**: 
