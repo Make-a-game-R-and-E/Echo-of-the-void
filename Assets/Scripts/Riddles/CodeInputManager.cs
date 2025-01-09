@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CodeInputManager : MonoBehaviour
 {
-    [SerializeField] string correctPasscode = "2204"; // replace this with the code you want
+    [SerializeField] string correctPasscode = "2204";
     [SerializeField] TMP_InputField passcodeInputField;
-    [SerializeField] GameObject blockedObject; // Assign the red block or door object
+    [SerializeField] GameObject blockedObject;
     [SerializeField] GameObject codeInputUI;
     [SerializeField] GameObject robotBlock;
     [SerializeField] float distanceToMove = 2f;
@@ -31,7 +31,7 @@ public class CodeInputManager : MonoBehaviour
             // You can also give feedback to the player here if needed
             failure.SetActive(false); // Hide the failure message if it was shown before
             success.SetActive(true);
-            Destroy(success, 2f);
+            Destroy(success, secondsToWait);
         }
         else
         {

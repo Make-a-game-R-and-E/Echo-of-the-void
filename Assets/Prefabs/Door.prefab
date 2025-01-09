@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1671323143726250575}
   - component: {fileID: 7332793843309532028}
-  - component: {fileID: 5464510255531683671}
   - component: {fileID: -8526292958537444275}
+  - component: {fileID: -7820216683053655019}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -89,20 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5464510255531683671
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2810698088044823465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86c1a03b3404c564eb7e91281630b403, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: 
-  isGasRoom: 0
 --- !u!61 &-8526292958537444275
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,3 +135,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7820216683053655019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2810698088044823465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f8a318a2f9928442848234fd4687b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelName: 

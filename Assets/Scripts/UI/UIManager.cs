@@ -3,16 +3,21 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject warningPanel;
+    [SerializeField] GameObject Object;
 
-
-    public void ShowGasWarning()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        warningPanel.SetActive(true);
+        if (other.CompareTag("Player"))
+        {
+            Object.SetActive(true);
+        }
     }
 
-    public void HideGasWarning()
+    void OnTriggerExit2D(Collider2D other)
     {
-        warningPanel.SetActive(false);
+        if (other.CompareTag("Player"))
+        {
+            Object.SetActive(false);
+        }
     }
 }

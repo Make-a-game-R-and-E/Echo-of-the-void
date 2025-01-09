@@ -6,7 +6,7 @@ public class ResetScene : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+            SceneLoader.ReloadCurrentScene();
         }
     }
 }
