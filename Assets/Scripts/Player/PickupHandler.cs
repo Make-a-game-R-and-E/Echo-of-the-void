@@ -3,10 +3,10 @@ using UnityEngine;
 public class PickupHandler : MonoBehaviour
 {
     GameObject pickedObject; // The object that the player is currently holding
-    [SerializeField] Transform holdPosition; 
+    [SerializeField] Transform holdPosition;
 
-    float radius = 1.0f; // The radius in which the player can pick up objects
-    
+    [SerializeField] float radius = 1.0f; // The radius in which the player can pick up objects
+
     void Update()
     {
         // If the player presses the Tab key
@@ -33,18 +33,17 @@ public class PickupHandler : MonoBehaviour
             {
                 pickedObject = collider.gameObject;
                 pickedObject.transform.SetParent(holdPosition); // Change the object's parent to the player's hand
-                pickedObject.transform.localPosition = Vector3.zero; 
+                pickedObject.transform.localPosition = Vector3.zero;
                 pickedObject.GetComponent<Collider2D>().enabled = false;
                 break;
             }
         }
     }
 
-       private void DropObject()
+    private void DropObject()
     {
         pickedObject.transform.SetParent(null);
-        pickedObject.GetComponent<Collider2D>().enabled = true; 
+        pickedObject.GetComponent<Collider2D>().enabled = true;
         pickedObject = null;
     }
-
 }

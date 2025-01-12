@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/test.unity
     guid: b62280008d9f7234fb720d11338baa15
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/New Scene.unity
     guid: 4d372ec8593e65a43a79e8d9536c9372
   - enabled: 1
@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Imported/NGO_Minimal_Setup/NGO_Setup.unity
     guid: 53ba1f9d0f7fbd54ab1325df2874ae55
+  - enabled: 1
+    path: Assets/Scenes/Room_2.unity
+    guid: 4c3d302c940271e48a5d773302c2f5a1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
