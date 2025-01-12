@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 3
   tags:
   - PowerCell
+  - DoorR
+  - DoorG
+  - DoorB
+  - DoorP
+  - Button
   layers:
   - Default
   - TransparentFX
