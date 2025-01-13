@@ -806,9 +806,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkRunnerPrefab: {fileID: 0}
-  _roomName: {fileID: 2016838735}
-  _runner: {fileID: 0}
-  SceneIndex: 2
+  _roomNameInput: {fileID: 2016838735}
+  _gameSceneIndex: 2
 --- !u!1001 &982472445
 PrefabInstance:
   m_ObjectHideFlags: 0
