@@ -886,6 +886,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5154931436220691923, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6541670259317821791, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
       propertyPath: m_Name
       value: Arrow Guide
@@ -947,6 +951,10 @@ PrefabInstance:
     - target: {fileID: 4857451519687882902, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 270
+      objectReference: {fileID: 0}
+    - target: {fileID: 5154931436220691923, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6541670259317821791, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
       propertyPath: m_Name
@@ -13764,6 +13772,8 @@ GameObject:
   - component: {fileID: 894916626}
   - component: {fileID: 894916625}
   - component: {fileID: 894916624}
+  - component: {fileID: 894916628}
+  - component: {fileID: 894916627}
   m_Layer: 8
   m_Name: Walls
   m_TagString: Untagged
@@ -16850,6 +16860,78 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!66 &894916627
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894916622}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths: []
+  m_CompositePaths:
+    m_Paths: []
+  m_VertexDistance: 0.0005
+  m_OffsetDistance: 0.00005
+  m_UseDelaunayMesh: 0
+  m_CompositeGameObject: {fileID: 894916622}
+--- !u!50 &894916628
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894916622}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &921005191
 GameObject:
   m_ObjectHideFlags: 0
@@ -17588,6 +17670,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5154931436220691923, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6541670259317821791, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
       propertyPath: m_Name
       value: Arrow Guide (3)
@@ -18278,6 +18364,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5154931436220691923, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6541670259317821791, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
       propertyPath: m_Name
       value: Arrow Guide (2)
@@ -18509,6 +18599,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5154931436220691923, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6541670259317821791, guid: be3ce73f89c723046892c8a9e6868ce0, type: 3}
       propertyPath: m_Name
       value: Arrow Guide (4)
@@ -18733,6 +18827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _runner: {fileID: 0}
+  SceneIndex: 2
   _playerPrefab:
     RawGuidValue: bfddb274194fcad4785fcf4e9880b3a5
   spawnPoints:

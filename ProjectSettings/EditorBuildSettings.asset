@@ -6,36 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/test.unity
-    guid: b62280008d9f7234fb720d11338baa15
-  - enabled: 0
-    path: Assets/Scenes/New Scene.unity
-    guid: 4d372ec8593e65a43a79e8d9536c9372
-  - enabled: 1
-    path: Assets/Scenes/Start.unity
-    guid: ded71efffa6090b489a20e19af2432db
-  - enabled: 1
-    path: Assets/Scenes/Win.unity
-    guid: 9d2bd975164a8cc4b895105184f205eb
-  - enabled: 1
-    path: Assets/Scenes/11.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
-    path: Assets/Scenes/22.unity
-    guid: b1d4de3264fe44141865be584147a359
-  - enabled: 1
-    path: Assets/Scenes/3.unity
-    guid: 3341af15d27f0424f8e7b478a9088c58
-  - enabled: 1
-    path: Assets/Scenes/4.unity
-    guid: 520dcd51ea08000488499572bb1f0eb0
-  - enabled: 0
-    path: Assets/Imported/NGO_Minimal_Setup/NGO_Setup.unity
-    guid: 53ba1f9d0f7fbd54ab1325df2874ae55
-  - enabled: 1
-    path: Assets/Scenes/Room_2.unity
-    guid: 4c3d302c940271e48a5d773302c2f5a1
-  - enabled: 1
     path: Assets/Scenes/0_Video.unity
     guid: 98b3ab75cce31e94aaab46337ee5990e
   - enabled: 1

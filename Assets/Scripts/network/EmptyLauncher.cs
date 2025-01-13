@@ -91,8 +91,11 @@ public class EmptyLauncher : MonoBehaviour, INetworkRunnerCallbacks
         Debug.Log($"OnReliableDataReceived {player} {key} {progress}");
     }
 
-    [SerializeField]
-    protected NetworkRunner _runner;
+    [SerializeField] protected NetworkRunner _runner;
+
+    [Header("Scene Settings")]
+    // This field will appear in the Inspector for you to input the scene name
+    [SerializeField] int SceneIndex;
 
     private void Awake()
     {
@@ -108,7 +111,7 @@ public class EmptyLauncher : MonoBehaviour, INetworkRunnerCallbacks
         _runner.ProvideInput = true;
 
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var scene = SceneRef.FromIndex(SceneIndex);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
