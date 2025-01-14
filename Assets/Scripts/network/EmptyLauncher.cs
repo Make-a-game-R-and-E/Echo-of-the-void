@@ -90,9 +90,6 @@ public class EmptyLauncher : MonoBehaviour, INetworkRunnerCallbacks
         Debug.Log($"OnReliableDataReceived {player} {key} {progress}");
     }
 
-
-
-
     [Header("UI References")]
     [SerializeField] private TMP_InputField _roomNameInput = null;
     [SerializeField] private Canvas _mainMenuCanvas = null; // Reference to the main menu Canvas
@@ -100,8 +97,6 @@ public class EmptyLauncher : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private GameObject[] _uiElementsToDisable = null; // Array to reference multiple UI elements
 
     protected NetworkRunner _runner;
-
-
 
     // Called by the "Start" button in this menu
     public void StartShared()
@@ -121,7 +116,7 @@ public class EmptyLauncher : MonoBehaviour, INetworkRunnerCallbacks
 
         // Disable UI elements to prevent further input
         DisableUIElements();
-        
+
         // Create the Fusion runner and let it know that we will be providing user input
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;

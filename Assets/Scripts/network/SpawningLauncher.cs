@@ -39,8 +39,8 @@ public class SpawningLauncher : EmptyLauncher
 
     [SerializeField] InputAction moveAction = new InputAction(type: InputActionType.Button);
 
-    private void OnEnable() { moveAction.Enable();}
-    private void OnDisable() { moveAction.Disable();}
+    private void OnEnable() {moveAction.Enable();}
+    private void OnDisable() {moveAction.Disable();}
     void OnValidate()
     {
         // Provide default bindings for the input actions. Based on answer by DMGregory: https://gamedev.stackexchange.com/a/205345/18261

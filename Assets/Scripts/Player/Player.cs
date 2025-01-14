@@ -19,6 +19,9 @@ public class Player : NetworkBehaviour
     [Networked] private float NetworkedSpeed { get; set; }
     [Networked] private int NetworkedDirection { get; set; }
 
+    // Reference to the RobotPasscodeUI
+    [SerializeField] RobotPasscodeUI _passcodeUI;
+
     public override void Spawned()
     {
         base.Spawned();
@@ -46,22 +49,32 @@ public class Player : NetworkBehaviour
         // Only the local owner gets valid input
         if (GetInput(out NetworkInputData inputData))
         {
-            Vector2 moveVec2 = inputData.moveActionValue;
-            if (moveVec2.sqrMagnitude > 0.001f)
+            // check if the UI is open => disallow movement
+            bool canMove = true;
+            if (_passcodeUI != null && _passcodeUI.IsPanelOpen)
             {
-                moveVec2.Normalize();
-
-                Vector3 movement = new Vector3(moveVec2.x, moveVec2.y, 0f) * speed * Runner.DeltaTime;
-                transform.position += movement;
-                float currentSpeed = movement.magnitude / Runner.DeltaTime;
-
-                // Store in [Networked] properties so everyone else gets the same values
-                NetworkedSpeed = currentSpeed;
-                NetworkedDirection = ComputeDirection(moveVec2);
+                canMove = false;
             }
-            else
+
+            if (canMove)
             {
-                NetworkedSpeed = 0f;
+                Vector2 moveVec2 = inputData.moveActionValue;
+                if (moveVec2.sqrMagnitude > 0.001f)
+                {
+                    moveVec2.Normalize();
+
+                    Vector3 movement = new Vector3(moveVec2.x, moveVec2.y, 0f) * speed * Runner.DeltaTime;
+                    transform.position += movement;
+                    float currentSpeed = movement.magnitude / Runner.DeltaTime;
+
+                    // Store in [Networked] properties so everyone else gets the same values
+                    NetworkedSpeed = currentSpeed;
+                    NetworkedDirection = ComputeDirection(moveVec2);
+                }
+                else
+                {
+                    NetworkedSpeed = 0f;
+                }
             }
         }
 

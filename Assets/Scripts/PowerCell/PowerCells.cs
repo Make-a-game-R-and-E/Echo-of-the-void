@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PowerCell : MonoBehaviour
 {
-    public string cellColor; 
+    [SerializeField] string cellColor;
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) // If the player collides with the power cell
