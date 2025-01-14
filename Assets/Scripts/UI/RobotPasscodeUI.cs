@@ -1,4 +1,5 @@
 using Fusion;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class RobotPasscodeUI : MonoBehaviour
     // If you want a single correct passcode for everyone
     [SerializeField] private string correctPasscode = "2204";
 
-    private NetworkObject robotNetworkObject;
+    [SerializeField] private NetworkObject robotNetworkObject;
 
     // We'll keep track if we are near the robot
     private bool canEnterPasscode;
@@ -25,7 +26,7 @@ public class RobotPasscodeUI : MonoBehaviour
 
     [SerializeField] float secondsToWait = 2f;
 
-    [SerializeField] private InputAction interactAction = new InputAction("Interact", InputActionType.Button, "<Keyboard>/e");
+    [SerializeField] private InputAction interactAction = new InputAction("Interact", InputActionType.Button, "<Keyboard>/q");
 
     private void OnEnable()
     {
@@ -115,14 +116,21 @@ public class RobotPasscodeUI : MonoBehaviour
     // This is where we call the Robot's RPC
     private void OpenRobotDoor()
     {
+        Debug.Log("Opening door_ 120");
         if (robotNetworkObject != null)
         {
+            Debug.Log("Opening door_ 122");
             // We fetch the RobotBlock script from the network object
             RobotBlock robotBlock = robotNetworkObject.GetComponent<RobotBlock>();
             if (robotBlock != null)
             {
+                Debug.Log("Opening door_ 127");
                 // Call the RPC on the server to open the door
                 robotBlock.RPC_OpenDoor();
+            }
+            else
+            {
+                Debug.LogWarning("RobotBlock component not found on robot object");
             }
         }
     }

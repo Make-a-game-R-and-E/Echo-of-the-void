@@ -6,15 +6,15 @@ public class DoorManager : NetworkBehaviour
 {
     [Header("Doors to open")]
     [Tooltip("Assign all Door objects (GameObjects) here.")]
-    public GameObject[] doors;
+    [SerializeField] GameObject[] doors;
 
     [Header("Pressure Plates to press")]
     [Tooltip("Assign all Pressure Plate objects (GameObjects) here.")]
-    public GameObject[] pressurePlates;
+    [SerializeField] GameObject[] pressurePlates;
 
     [Header("Door Settings")]
     [Tooltip("If checked, once the doors are opened they will remain open even if the players leave the plates.")]
-    public bool stayOpenOnceTriggered = false;
+    [SerializeField] bool stayOpenOnceTriggered = false;
 
     // Internal array to track if each plate is currently pressed
     private bool[] plateStates;
@@ -85,7 +85,6 @@ public class DoorManager : NetworkBehaviour
         {
             if (door != null)
             {
-                // Example: deactivate door (so passage is open) or animate
                 door.SetActive(false);
             }
         }

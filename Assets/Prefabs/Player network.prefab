@@ -2060,6 +2060,7 @@ MonoBehaviour:
   passcodeInputField: {fileID: 8147990105140967121}
   successMessage: {fileID: 924304649196236394}
   failureMessage: {fileID: 7129937911441844290}
+  correctPasscode: 2204
   secondsToWait: 2
   interactAction:
     m_Name: Interact
@@ -2071,7 +2072,7 @@ MonoBehaviour:
     m_SingletonActionBindings:
     - m_Name: 
       m_Id: 08d5cdb3-0be7-481b-b51f-f65b6577973c
-      m_Path: <Keyboard>/e
+      m_Path: <Keyboard>/q
       m_Interactions: 
       m_Processors: 
       m_Groups: 
