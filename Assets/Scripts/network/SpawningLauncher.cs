@@ -1,72 +1,35 @@
-using System.Collections.Generic;
+// From the Fusion 2 Tutorial: https://doc.photonengine.com/fusion/current/tutorials/host-mode-basics/2-setting-up-a-scene#launching-fusion
 using UnityEngine;
 using Fusion;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// This script should be placed in your "Game" scene (the 3rd scene).
-/// Once that scene is loaded, it will handle actual Player spawning.
-/// </summary>
+// This class launches Fusion NetworkRunner, and also spanws a new avatar whenever a player joins.
 public class SpawningLauncher : EmptyLauncher
 {
-    [Header("Player Prefab & Spawn Points")]
-    [SerializeField] private NetworkPrefabRef _playerPrefab;
-    [SerializeField] private Transform[] spawnPoints;
-
-    // Keep track of spawned player objects
+    [SerializeField] NetworkPrefabRef _playerPrefab;
+    [SerializeField] Transform[] spawnPoints;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
-
-    [Header("Player Movement Input")]
-    [SerializeField] private InputAction moveAction = new InputAction(type: InputActionType.Value);
-
-    private NetworkInputData _inputData;
-
-    private void OnEnable()
-    {
-        // Enable the new Input System Action so we can read movement input
-        moveAction.Enable();
-    }
-
-    private void OnDisable()
-    {
-        moveAction.Disable();
-    }
-
-    // Called every time a new player joins (in Shared or Host mode)
     public override void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        Debug.Log($"Player {player} joined.");
-
-        // In Shared mode: each local client spawns its own player
-        // In Host/Server mode: only the server spawns for all
-        bool isAllowedToSpawn = (runner.GameMode == GameMode.Shared)
-            ? (player == runner.LocalPlayer)
-            : runner.IsServer;
-
+        Debug.Log($"Player {player} joined");
+        bool isAllowedToSpawn = (runner.GameMode == GameMode.Shared) ?
+            (player == runner.LocalPlayer) :   // in Shared mode, the local player is allowed to spawn.
+            runner.IsServer;                  // in Host or Server mode, only the server is allowed to spawn.
         if (isAllowedToSpawn)
         {
-            // pick a spawn point (mod in case more players than points)
-            Transform chosenSpawn = spawnPoints[player.PlayerId % spawnPoints.Length];
-            Vector3 spawnPos = chosenSpawn.position;
-            Quaternion spawnRot = chosenSpawn.rotation;
-
-            // spawn the player prefab, giving the new player input authority
-            NetworkObject networkPlayerObject = runner.Spawn(
-                _playerPrefab,
-                spawnPos,
-                spawnRot,
-                player
-            );
-
-            // Keep track so we can despawn if they leave
-            _spawnedCharacters[player] = networkPlayerObject;
+            // Create a unique position for the player
+            Vector3 spawnPosition = spawnPoints[player.AsIndex % spawnPoints.Length].position;
+            //new Vector3((player.RawEncoded % runner.Config.Simulation.PlayerCount) * 3, 0, 0);
+            NetworkObject networkPlayerObject = runner.Spawn(_playerPrefab, spawnPosition, Quaternion.identity, /*input authority:*/ player);
+            // Keep track of the player avatars for easy access
+            _spawnedCharacters.Add(player, networkPlayerObject);
         }
     }
 
-    // Called if a player leaves/disconnects
     public override void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        Debug.Log($"Player {player} left.");
+        Debug.Log($"Player {player} left");
         if (_spawnedCharacters.TryGetValue(player, out NetworkObject networkObject))
         {
             runner.Despawn(networkObject);
@@ -74,10 +37,26 @@ public class SpawningLauncher : EmptyLauncher
         }
     }
 
-    // Called every network tick on the local client to gather input
+    [SerializeField] InputAction moveAction = new InputAction(type: InputActionType.Button);
+
+    private void OnEnable() { moveAction.Enable();}
+    private void OnDisable() { moveAction.Disable();}
+    void OnValidate()
+    {
+        // Provide default bindings for the input actions. Based on answer by DMGregory: https://gamedev.stackexchange.com/a/205345/18261
+        if (moveAction.bindings.Count == 0)
+            moveAction.AddCompositeBinding("2DVector")
+                .With("Up", "<Keyboard>/W")
+                .With("Down", "<Keyboard>/S")
+                .With("Left", "<Keyboard>/A")
+                .With("Right", "<Keyboard>/D");
+    }
+
+    NetworkInputData inputData = new NetworkInputData();
+
     public override void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        _inputData.moveActionValue = moveAction.ReadValue<Vector2>();
-        input.Set(_inputData);
+        inputData.moveActionValue = moveAction.ReadValue<Vector2>();
+        input.Set(inputData);    // pass inputData by value 
     }
 }

@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 127477166}
-  nextSceneName: 1_MainMenu
+  nextSceneName: Game
   skipAction:
     m_Name: Skip
     m_Type: 0
