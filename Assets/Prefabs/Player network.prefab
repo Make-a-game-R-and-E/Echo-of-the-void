@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 1034888771476110276}
   - component: {fileID: 5545531287132320299}
   - component: {fileID: 7362686832994782251}
+  - component: {fileID: -5505445027771518701}
   m_Layer: 0
   m_Name: Player network
   m_TagString: Player
@@ -352,3 +353,16 @@ MonoBehaviour:
       m_Action: Pickup
       m_Flags: 0
     m_Flags: 0
+--- !u!114 &-5505445027771518701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9081761681515865836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90f6d25707781749bf2668963936571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiBox: {fileID: 0}
