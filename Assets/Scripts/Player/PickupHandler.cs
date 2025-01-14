@@ -1,29 +1,51 @@
+using Fusion;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PickupHandler : MonoBehaviour
+public class PickupHandler : NetworkBehaviour
 {
-    GameObject pickedObject; // The object that the player is currently holding
+    [Header("Pickup Settings")]
     [SerializeField] Transform holdPosition;
-
     [SerializeField] float radius = 1.0f; // The radius in which the player can pick up objects
 
-    void Update()
+    [Header("Input Settings")]
+    [SerializeField] InputAction pickupAction; // Assign this in the Inspector
+
+    GameObject pickedObject; // The object that the player is currently holding
+
+
+    private void OnEnable()
     {
-        // If the player presses the Tab key
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (pickupAction != null)
         {
-            if (pickedObject == null)
-            {
-                TryPickup(); // Attempt to pick up an object
-            }
-            else
-            {
-                DropObject(); // Drop the object
-            }
+            pickupAction.Enable();
+            pickupAction.performed += OnPickupAction;
         }
     }
 
-    void TryPickup()
+    private void OnDisable()
+    {
+        if (pickupAction != null)
+        {
+            pickupAction.performed -= OnPickupAction;
+            pickupAction.Disable();
+        }
+    }
+
+    private void OnPickupAction(InputAction.CallbackContext context)
+    {
+        if (pickedObject == null)
+        {
+            TryPickup_RPC();
+        }
+        else
+        {
+            DropObject_RPC();
+        }
+    }
+
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    void TryPickup_RPC()
     {
         // Search for objects within a 1.0f radius
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius); // Search for objects within a 1.0f radius
@@ -40,7 +62,8 @@ public class PickupHandler : MonoBehaviour
         }
     }
 
-    private void DropObject()
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    private void DropObject_RPC()
     {
         pickedObject.transform.SetParent(null);
         pickedObject.GetComponent<Collider2D>().enabled = true;

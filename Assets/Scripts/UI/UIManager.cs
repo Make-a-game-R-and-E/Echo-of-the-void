@@ -9,7 +9,6 @@ public class UIManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player entered");
             Object.SetActive(true);
         }
     }
@@ -18,7 +17,6 @@ public class UIManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player exited");
             Object.SetActive(false);
         }
     }
