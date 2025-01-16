@@ -281,7 +281,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 127477165}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: cac46a6bccff52449a49e9e088274d76, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 970061962c446564abb2c78d908754ce, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -291,7 +291,7 @@ VideoPlayer:
   m_TargetMaterialProperty: <noninit>
   m_RenderMode: 2
   m_AspectRatio: 2
-  m_DataSource: 0
+  m_DataSource: 1
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 2
@@ -299,7 +299,7 @@ VideoPlayer:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 0.8
-  m_Url: 
+  m_Url: file://C:/Users/elyas/Desktop/UNITY/Unity Games/2D/Echo of the void demo/Assets/StreamingAssets/video.mp4
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
