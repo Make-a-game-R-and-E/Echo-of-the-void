@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      butten_off_0: 8515570827781969649
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
