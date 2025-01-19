@@ -526,6 +526,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2952235400967787969, guid: 97eb8d7499534c409705860ec0a06bd6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 164923322}
+    - targetCorrespondingSourceObject: {fileID: 2952235400967787969, guid: 97eb8d7499534c409705860ec0a06bd6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 164923325}
   m_SourcePrefab: {fileID: 100100000, guid: 97eb8d7499534c409705860ec0a06bd6, type: 3}
 --- !u!4 &164923320 stripped
 Transform:
@@ -596,6 +599,43 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.28, y: 1.28}
   m_EdgeRadius: 0
+--- !u!70 &164923325
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164923321}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.036961555, y: -0.025201797}
+  m_Size: {x: 0.63484764, y: 0.8935814}
+  m_Direction: 0
 --- !u!1001 &222123276
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2082,8 +2122,8 @@ GameObject:
   m_Component:
   - component: {fileID: 750589525}
   - component: {fileID: 750589527}
-  - component: {fileID: 750589526}
   - component: {fileID: 750589528}
+  - component: {fileID: 750589526}
   m_Layer: 0
   m_Name: Robot_Block
   m_TagString: Untagged
@@ -39953,6 +39993,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1094582550 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2952235400967787969, guid: 97eb8d7499534c409705860ec0a06bd6, type: 3}
+  m_PrefabInstance: {fileID: 1381718704}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1095241134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40196,7 +40241,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Room Name
+  m_text: DefaultRoom
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -41033,13 +41078,53 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2952235400967787969, guid: 97eb8d7499534c409705860ec0a06bd6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1381718707}
   m_SourcePrefab: {fileID: 100100000, guid: 97eb8d7499534c409705860ec0a06bd6, type: 3}
 --- !u!4 &1381718705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2952235400967787975, guid: 97eb8d7499534c409705860ec0a06bd6, type: 3}
   m_PrefabInstance: {fileID: 1381718704}
   m_PrefabAsset: {fileID: 0}
+--- !u!70 &1381718707
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094582550}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.039724708, y: 0.017654419}
+  m_Size: {x: 0.54730034, y: 0.87392426}
+  m_Direction: 0
 --- !u!1001 &1397239788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43094,8 +43179,8 @@ Transform:
   - {fileID: 513211090}
   - {fileID: 1535355290}
   - {fileID: 1988974531}
-  - {fileID: 750589525}
   - {fileID: 803008007}
+  - {fileID: 750589525}
   - {fileID: 164923320}
   m_Father: {fileID: 1378377659}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

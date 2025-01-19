@@ -18,28 +18,34 @@ public class RobotBlock : NetworkBehaviour
         blockingCollider.enabled = true;
     }
 
+    public void TryOpenDoor()
+    {
+        // Only call the RPC if the door is not open
+        if (!IsOpen)
+        {
+            RPC_OpenDoor();
+        }
+        else
+        {
+            Debug.Log("Door is already open");
+        }
+    }
+
     // This method can be called via an RPC or directly by the Host/Server
     [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_OpenDoor()
+    private void RPC_OpenDoor()
     {
-        Debug.Log("Opening door_25");
-        // Only do something if not opened yet
-        if (IsOpen)
-        {
-            blockingCollider.enabled = false;
-            robotTransform.position = new Vector3(transform.position.x + distanceToMove, transform.position.y, 0);
-
-            Debug.Log("Door is already open");
-            return;
-        }
-        Debug.Log("Opening door 28");
         // Move the robot aside
         robotTransform.position = new Vector3(transform.position.x + distanceToMove, transform.position.y, 0);
 
         // Disable the collider so the way is unblocked
         blockingCollider.enabled = false;
 
-
         IsOpen = true;
+    }
+
+    public bool IsDoorOpen()
+    {
+        return IsOpen;
     }
 }

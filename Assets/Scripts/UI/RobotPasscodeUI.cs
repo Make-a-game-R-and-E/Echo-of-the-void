@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class RobotPasscodeUI : MonoBehaviour
 {
     [SerializeField] private GameObject passcodePanel;
@@ -30,7 +29,7 @@ public class RobotPasscodeUI : MonoBehaviour
 
     private void OnEnable()
     {
-        // 2) Make sure the action is enabled
+        // Make sure the action is enabled
         if (interactAction != null)
         {
             interactAction.Enable();
@@ -47,14 +46,22 @@ public class RobotPasscodeUI : MonoBehaviour
         }
     }
 
-    // 3) Callback method for when the 'Interact' action is performed
+    // Callback method for when the 'Interact' action is performed
     private void OnInteractPerformed(InputAction.CallbackContext ctx)
     {
         if (canEnterPasscode)
         {
+            // Check if the door is already open before toggling the panel
+            if (IsDoorOpen())
+            {
+                Debug.Log("The door is already open, no need to show the panel.");
+                return;
+            }
+
             TogglePanel();
         }
     }
+
     private void Start()
     {
         passcodePanel.SetActive(false);
@@ -93,15 +100,15 @@ public class RobotPasscodeUI : MonoBehaviour
         }
         else
         {
-
             // Show failure message
             failureMessage.SetActive(true);
             // Clear input
             passcodeInputField.text = "";
-            // hide the message after some time
+            // Hide the message after some time
             StartCoroutine(HideFailureMessage());
         }
     }
+
     IEnumerator HideFailureMessage()
     {
         yield return new WaitForSeconds(secondsToWait);
@@ -116,17 +123,14 @@ public class RobotPasscodeUI : MonoBehaviour
     // This is where we call the Robot's RPC
     private void OpenRobotDoor()
     {
-        Debug.Log("Opening door_ 120");
         if (robotNetworkObject != null)
         {
-            Debug.Log("Opening door_ 122");
             // We fetch the RobotBlock script from the network object
             RobotBlock robotBlock = robotNetworkObject.GetComponent<RobotBlock>();
             if (robotBlock != null)
             {
-                Debug.Log("Opening door_ 127");
                 // Call the RPC on the server to open the door
-                robotBlock.RPC_OpenDoor();
+                robotBlock.TryOpenDoor();
             }
             else
             {
@@ -135,12 +139,28 @@ public class RobotPasscodeUI : MonoBehaviour
         }
     }
 
+    // Helper method to check if the door is already open
+    private bool IsDoorOpen()
+    {
+        if (robotNetworkObject != null)
+        {
+            RobotBlock robotBlock = robotNetworkObject.GetComponent<RobotBlock>();
+            if (robotBlock != null)
+            {
+                return robotBlock.IsDoorOpen();
+            }
+        }
+
+        return false;
+    }
+
     // Called by Trigger/Collider logic
     public void SetRobotInRange(NetworkObject robot)
     {
         robotNetworkObject = robot;
         canEnterPasscode = (robot != null);
     }
+
     public bool IsPanelOpen
     {
         get { return passcodePanel.activeSelf; }
@@ -151,5 +171,4 @@ public class RobotPasscodeUI : MonoBehaviour
     {
         HidePanel();
     }
-
 }
