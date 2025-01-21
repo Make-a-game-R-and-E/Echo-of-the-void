@@ -48,6 +48,8 @@ This game have a demo version of 'Echo of the void', in this demo you will have 
 ---
 **Links**
 
+[Trailer](https://youtu.be/nGzLKLtI14U)
+
 [Game](https://elyasafko.itch.io/echo-of-the-void)
 
 [Component Page](https://github.com/Make-a-game-R-and-E/Echo-of-the-void-demo/blob/master/formal-elements.md)
