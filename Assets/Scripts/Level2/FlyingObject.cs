@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class FlyingObject : MonoBehaviour
 {
-    public float speed = 5f; // מהירות התנועה
+    [SerializeField] float speed = 10f; // מהירות התנועה
 
-    void Update()
+    void FixedUpdateNetwork()
     {
-        // תנועה בכיוון מוגדר (למשל שמאלה)
+        // move the object left
         transform.Translate(Vector3.left * speed * Time.deltaTime);
     }
 }

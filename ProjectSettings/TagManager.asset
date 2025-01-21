@@ -10,6 +10,8 @@ TagManager:
   - DoorB
   - DoorP
   - Button
+  - Floor
+  - CheckPoint
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Background
   - Floor
   - Particles
-  - 
+  - Wall
   - 
   - 
   - 

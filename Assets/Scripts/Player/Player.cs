@@ -11,74 +11,90 @@ public class Player : NetworkBehaviour
     [Header("Animation")]
     [SerializeField] private Animator animator;
 
-    // We store the movement direction to use in FixedUpdateNetwork
-    private Vector3 _moveDirection;
+    // Reference to the RobotPasscodeUI (if you have an in-game UI that can block movement)
+    [SerializeField] private RobotPasscodeUI _passcodeUI;
 
-    private Camera _camera;
-
+    // For animation only: how fast the player is moving
     [Networked] private float NetworkedSpeed { get; set; }
+    // For animation only: 0=Up,1=Right,2=Down,3=Left
     [Networked] private int NetworkedDirection { get; set; }
 
-    // Reference to the RobotPasscodeUI
-    [SerializeField] RobotPasscodeUI _passcodeUI;
+    // Networked property that holds the authoritative position
+    [Networked]
+    public Vector3 NetworkedPosition { get; set; }
+
+    private Camera _camera;
 
     public override void Spawned()
     {
         base.Spawned();
 
-        if (HasStateAuthority)
+        // If we are the State Authority for this object, initialize the NetworkedPosition
+        if (Object.HasStateAuthority)
         {
-            // Set the camera target to this player
+            NetworkedPosition = transform.position;
+        }
+
+        // If we have Input Authority (we control this player), set up our camera, etc.
+        if (HasInputAuthority)
+        {
             _camera = Camera.main;
-            var topDownCameraComponent = _camera.GetComponent<TopDownCamera>();
-            if (topDownCameraComponent && topDownCameraComponent.isActiveAndEnabled)
+            var topDownCamera = _camera?.GetComponent<TopDownCamera>();
+            if (topDownCamera && topDownCamera.isActiveAndEnabled)
             {
-                topDownCameraComponent.SetTarget(this.transform);
+                topDownCamera.SetTarget(this.transform);
             }
         }
-    }
-
-    public override void Despawned(NetworkRunner runner, bool hasState)
-    {
-        base.Despawned(runner, hasState);
-        // Cleanup if needed
     }
 
     public override void FixedUpdateNetwork()
     {
-        // Only the local owner gets valid input
-        if (GetInput(out NetworkInputData inputData))
+        // --- AUTHORITY SIDE ---
+        if (Object.HasStateAuthority)
         {
-            // check if the UI is open => disallow movement
-            bool canMove = true;
-            if (_passcodeUI != null && _passcodeUI.IsPanelOpen)
+            if (GetInput(out NetworkInputData inputData))
             {
-                canMove = false;
-            }
-
-            if (canMove)
-            {
-                Vector2 moveVec2 = inputData.moveActionValue;
-                if (moveVec2.sqrMagnitude > 0.001f)
+                bool canMove = true;
+                if (_passcodeUI != null && _passcodeUI.IsPanelOpen)
                 {
-                    moveVec2.Normalize();
-
-                    Vector3 movement = new Vector3(moveVec2.x, moveVec2.y, 0f) * speed * Runner.DeltaTime;
-                    transform.position += movement;
-                    float currentSpeed = movement.magnitude / Runner.DeltaTime;
-
-                    // Store in [Networked] properties so everyone else gets the same values
-                    NetworkedSpeed = currentSpeed;
-                    NetworkedDirection = ComputeDirection(moveVec2);
+                    canMove = false;
                 }
-                else
+
+                if (canMove)
                 {
-                    NetworkedSpeed = 0f;
+                    Vector2 moveVec2 = inputData.moveActionValue;
+                    if (moveVec2.sqrMagnitude > 0.001f)
+                    {
+                        moveVec2.Normalize();
+
+                        // Calculate movement
+                        Vector3 movement = new Vector3(moveVec2.x, moveVec2.y, 0f) * speed * Runner.DeltaTime;
+                        transform.position += movement;
+
+                        // Update authoritative position
+                        NetworkedPosition = transform.position;
+
+                        // Calculate speed & direction for animation
+                        float currentSpeed = movement.magnitude / Runner.DeltaTime;
+                        NetworkedSpeed = currentSpeed;
+                        NetworkedDirection = ComputeDirection(moveVec2);
+                    }
+                    else
+                    {
+                        NetworkedSpeed = 0f;
+                    }
                 }
             }
         }
+        else
+        {
+            // --- NON-AUTHORITY CLIENTS ---
+            // Follow the authoritative NetworkedPosition
+            transform.position = NetworkedPosition;
+        }
 
-        // Now EVERY instance (local + remote) sets the Animator from the same [Networked] values
+        // --- ALL INSTANCES ---
+        // Update the animator parameters using the networked values
         animator.SetFloat("Speed", NetworkedSpeed);
         animator.SetInteger("Direction", NetworkedDirection);
     }
