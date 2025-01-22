@@ -1,41 +1,36 @@
 using UnityEngine;
-using Fusion;
-using System.Collections.Generic;
 
-public class DoorManager : NetworkBehaviour
+public class DoorManager : MonoBehaviour
 {
     [Header("Doors to open")]
     [Tooltip("Assign all Door objects (GameObjects) here.")]
-    [SerializeField] GameObject[] doors;
+    [SerializeField] private GameObject[] doors;
 
     [Header("Pressure Plates to press")]
     [Tooltip("Assign all Pressure Plate objects (GameObjects) here.")]
-    [SerializeField] GameObject[] pressurePlates;
+    [SerializeField] private GameObject[] pressurePlates;
 
     [Header("Door Settings")]
     [Tooltip("If checked, once the doors are opened they will remain open even if the players leave the plates.")]
-    [SerializeField] bool stayOpenOnceTriggered = false;
+    [SerializeField] private bool stayOpenOnceTriggered = false;
 
     // Internal array to track if each plate is currently pressed
     private bool[] plateStates;
 
-    // A single networked boolean that indicates if ALL plates are pressed 
-    // (i.e., puzzle is "completed" in that moment).
-    // We use this for immediate door toggling.
-    [Networked]
-    private bool allPlatesPressed { get; set; }
+    // Local boolean to track if ALL plates are pressed this frame
+    private bool allPlatesPressed = false;
 
     private void Awake()
     {
+        // Initialize plate states
         plateStates = new bool[pressurePlates.Length];
     }
 
-    // Called on every network tick (like Update, but synced via Fusion)
-    public override void FixedUpdateNetwork()
+    private void FixedUpdate()
     {
         bool localAllPressed = true;
 
-        // 1) Check each plate: is there at least one "Player" on it?
+        // 1) Check each plate to see if there's at least one "Player" on it
         for (int i = 0; i < pressurePlates.Length; i++)
         {
             // Use a small 2D box overlap around the plate position
@@ -62,24 +57,25 @@ public class DoorManager : NetworkBehaviour
             }
         }
 
-        // 2) If all plates are pressed and we haven't flagged that state yet, open doors
+        // 2) If all plates are pressed now, and previously they weren't, open doors
         if (localAllPressed && !allPlatesPressed)
         {
             allPlatesPressed = true;
-            RPC_OpenDoors();
+            OpenDoors();
         }
-        // 3) If not all pressed, and previously all were pressed, close doors
-        //    (unless we have marked them to stay open once triggered)
+        // 3) If not all pressed now, but previously all were pressed, close doors
+        //    (unless we want them to stay open once triggered).
         else if (!localAllPressed && allPlatesPressed && !stayOpenOnceTriggered)
         {
             allPlatesPressed = false;
-            RPC_CloseDoors();
+            CloseDoors();
         }
     }
 
-    // RPC to open doors on all clients
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RPC_OpenDoors()
+    /// <summary>
+    /// Deactivate doors so the path is open.
+    /// </summary>
+    private void OpenDoors()
     {
         foreach (var door in doors)
         {
@@ -88,20 +84,22 @@ public class DoorManager : NetworkBehaviour
                 door.SetActive(false);
             }
         }
+        Debug.Log("Doors opened!");
     }
 
-    // RPC to close doors on all clients
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RPC_CloseDoors()
+    /// <summary>
+    /// Reactivate doors so the path is closed.
+    /// </summary>
+    private void CloseDoors()
     {
         foreach (var door in doors)
         {
             if (door != null)
             {
-                // Example: reactivate door (so passage is closed) or animate
                 door.SetActive(true);
             }
         }
+        Debug.Log("Doors closed!");
     }
 
     // For visual debugging in the Editor

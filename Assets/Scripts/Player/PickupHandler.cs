@@ -1,18 +1,16 @@
-using Fusion;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PickupHandler : NetworkBehaviour
+public class PickupHandler : MonoBehaviour
 {
     [Header("Pickup Settings")]
-    [SerializeField] Transform holdPosition;
-    [SerializeField] float radius = 1.0f; // The radius in which the player can pick up objects
+    [SerializeField] private Transform holdPosition;
+    [SerializeField] private float radius = 1.0f; // The radius in which the player can pick up objects
 
     [Header("Input Settings")]
-    [SerializeField] InputAction pickupAction; // Assign this in the Inspector
+    [SerializeField] private InputAction pickupAction; // Assign this in the Inspector
 
-    GameObject pickedObject; // The object that the player is currently holding
-
+    private GameObject pickedObject; // The object that the player is currently holding
 
     private void OnEnable()
     {
@@ -36,35 +34,41 @@ public class PickupHandler : NetworkBehaviour
     {
         if (pickedObject == null)
         {
-            TryPickup_RPC();
+            TryPickup();
         }
         else
         {
-            DropObject_RPC();
+            DropObject();
         }
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    void TryPickup_RPC()
+    /// <summary>
+    /// Attempt to pick up an object within the specified radius.
+    /// </summary>
+    private void TryPickup()
     {
-        // Search for objects within a 1.0f radius
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius); // Search for objects within a 1.0f radius
+        // Search for objects within the radius
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, radius);
         foreach (Collider2D collider in colliders)
         {
-            if (collider.CompareTag("PowerCell")) // If the object is a power cell
+            if (collider.CompareTag("PowerCell"))
             {
                 pickedObject = collider.gameObject;
-                pickedObject.transform.SetParent(holdPosition); // Change the object's parent to the player's hand
+                pickedObject.transform.SetParent(holdPosition);    // Parent to the holdPosition
                 pickedObject.transform.localPosition = Vector3.zero;
                 pickedObject.GetComponent<Collider2D>().enabled = false;
-                break;
+                break; // Stop after picking the first valid object
             }
         }
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void DropObject_RPC()
+    /// <summary>
+    /// Drop the currently held object.
+    /// </summary>
+    private void DropObject()
     {
+        if (pickedObject == null) return;
+
         pickedObject.transform.SetParent(null);
         pickedObject.GetComponent<Collider2D>().enabled = true;
         pickedObject = null;

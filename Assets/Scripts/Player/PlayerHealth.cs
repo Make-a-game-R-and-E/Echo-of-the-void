@@ -1,149 +1,128 @@
-using Fusion;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(NetworkObject))]
-public class PlayerHealth : NetworkBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Bar References")]
-    [SerializeField] private Slider overheadHealthBar;  // World-space UI slider above the player
+    [SerializeField] private Slider overheadHealthBar; // UI slider above the player
 
     [Header("Health Settings")]
     [SerializeField] private float maxHealth = 100f;
 
-    // Networked property to synchronize health across all clients.
-    [Networked]
-    [SerializeField] private float CurrentHealth { get; set; }
+    // Current health in single-player mode (no [Networked]).
+    private float currentHealth;
 
-    // Last checkpoint position (also networked)
-    [Networked]
-    private Vector3 LastCheckpoint { get; set; }
+    // Last checkpoint position
+    private Vector3 lastCheckpoint;
 
-    // Timer and settings for out-of-bounds damage
+    // Out-of-bounds damage logic
     private float damageTimer = 0f;
-    private float damageInterval = 0.5f;       // Apply damage once every 0.5 second
-    [SerializeField] private float outOfBoundsDamage = 5f;   // 5 damage if not on the floor
+    private float damageInterval = 0.5f;     // Apply damage once every 0.5 second
+    [SerializeField] private float outOfBoundsDamage = 5f; // e.g. 5 damage if not on the floor
 
     private bool isOnFloor = true;
 
-    // Called when this object is created/spawned on the network
-    public override void Spawned()
+    private void Start()
     {
-        // Only the State Authority initializes the health and the checkpoint
-        if (Object.HasStateAuthority)
-        {
-            CurrentHealth = maxHealth;
-            LastCheckpoint = transform.position;
-        }
+        // Initialize health to max
+        currentHealth = maxHealth;
+        // Use the object's initial position as the first checkpoint
+        lastCheckpoint = transform.position;
 
-        // Sync UI to the current health on spawn
-        UpdateHealthUI(CurrentHealth);
+        // Update overhead UI
+        UpdateHealthUI(currentHealth);
     }
 
-    public override void FixedUpdateNetwork()
+    private void FixedUpdate()
     {
-        // Only the State Authority applies out-of-bounds damage
-        if (Object.HasStateAuthority)
+        // If we’re not on the floor, apply damage periodically
+        if (!isOnFloor)
         {
-            bool onFloorCheck = CheckIfOnFloor();
-
-            if (!onFloorCheck)
-            {
-                damageTimer += Runner.DeltaTime;
-                if (damageTimer >= damageInterval)
-                {
-                    damageTimer = 0f;
-                    // Apply out-of-bounds damage via RPC
-                    TakeDamageRPC(outOfBoundsDamage);
-                }
-            }
-            else
+            damageTimer += Time.fixedDeltaTime;
+            if (damageTimer >= damageInterval)
             {
                 damageTimer = 0f;
+                TakeDamage(outOfBoundsDamage);
             }
+        }
+        else
+        {
+            // Reset timer if back on the floor
+            damageTimer = 0f;
         }
     }
 
-    /// Call this RPC to apply damage to the player (called by the State Authority).
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    public void TakeDamageRPC(float damage)
+    /// <summary>
+    /// Apply damage to this player.
+    /// </summary>
+    public void TakeDamage(float damage)
     {
-        // Clamp the new health
-        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0f, maxHealth);
+        // Clamp health between 0 and max
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
 
-        // Update UI for all clients
-        UpdateHealthUI(CurrentHealth);
+        // Update overhead health bar
+        UpdateHealthUI(currentHealth);
 
-        // Only the State Authority checks for death
-        if (Object.HasStateAuthority && CurrentHealth <= 0f)
+        // Check for death
+        if (currentHealth <= 0f)
         {
             Die();
         }
     }
 
-    /// Call this RPC to heal the player (called by the State Authority).
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    public void HealRPC(float amount)
+    /// <summary>
+    /// Heal the player.
+    /// </summary>
+    public void Heal(float amount)
     {
-        // Clamp the new health
-        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0f, maxHealth);
-
-        // Update UI for all clients
-        UpdateHealthUI(CurrentHealth);
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
+        UpdateHealthUI(currentHealth);
     }
 
-    /// Called only by the State Authority when CurrentHealth reaches 0 or below.
+    /// <summary>
+    /// Called if health falls to 0.
+    /// </summary>
     private void Die()
     {
-        // Respawn via an RPC (which will run on all clients).
-        RespawnRPC();
+        // Respawn at the last checkpoint
+        Respawn();
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RespawnRPC()
+    /// <summary>
+    /// Respawn the player at the saved checkpoint.
+    /// </summary>
+    private void Respawn()
     {
-        // Only the State Authority modifies the authoritative position
-        if (Object.HasStateAuthority)
-        {
-            // Get the Player (movement) script on the same object
-            Player playerMovement = GetComponent<Player>();
-            if (playerMovement != null)
-            {
-                // Set both NetworkedPosition and transform.position to LastCheckpoint
-                playerMovement.NetworkedPosition = LastCheckpoint;
-                transform.position = LastCheckpoint;
-            }
+        transform.position = lastCheckpoint;
+        currentHealth = maxHealth;
+        UpdateHealthUI(currentHealth);
 
-            // Restore health to max
-            CurrentHealth = maxHealth;
-
-            Debug.Log("Player respawned at " + LastCheckpoint);
-        }
-
-        // Update UI immediately after respawning for all clients
-        UpdateHealthUI(CurrentHealth);
+        Debug.Log($"Player respawned at {lastCheckpoint}");
     }
 
-    /// Update the UI elements (overhead bar and personal UI bar).
+    /// <summary>
+    /// Updates the overhead health bar UI.
+    /// </summary>
     private void UpdateHealthUI(float healthValue)
     {
-        float normalizedHealth = healthValue / maxHealth;
-
-        // Overhead Health Bar (for everyone to see)
         if (overheadHealthBar != null)
         {
-            overheadHealthBar.value = normalizedHealth;
+            overheadHealthBar.value = healthValue / maxHealth;
         }
     }
 
-    /// Update the checkpoint (called by the State Authority when the player reaches a new stage).
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    public void UpdateCheckpointRPC(Vector3 newCheckpoint)
+    /// <summary>
+    /// Updates the last checkpoint location.
+    /// Call this method when the player reaches a new stage/checkpoint.
+    /// </summary>
+    public void UpdateCheckpoint(Vector3 newCheckpoint)
     {
-        LastCheckpoint = newCheckpoint;
+        lastCheckpoint = newCheckpoint;
     }
 
-    // Called when the player enters a trigger marked "Floor"
+    /// <summary>
+    /// When entering a collider tagged "Floor", we consider the player on the floor.
+    /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Floor"))
@@ -152,18 +131,14 @@ public class PlayerHealth : NetworkBehaviour
         }
     }
 
-    // Called when the player exits a trigger marked "Floor"
+    /// <summary>
+    /// When exiting a collider tagged "Floor", the player is no longer on the floor.
+    /// </summary>
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Floor"))
         {
             isOnFloor = false;
         }
-    }
-
-    // This method is used to decide out-of-bounds damage
-    private bool CheckIfOnFloor()
-    {
-        return isOnFloor;
     }
 }

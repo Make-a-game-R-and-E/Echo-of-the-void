@@ -184,7 +184,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2685888381415495891}
   - component: {fileID: 2064450748285998032}
-  - component: {fileID: 3252882561040202415}
   - component: {fileID: 1107417103350690447}
   m_Layer: 0
   m_Name: Butten
@@ -224,25 +223,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonOff: {fileID: 1709325916120081657}
   buttonOn: {fileID: 2233730137463350212}
---- !u!114 &3252882561040202415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8446843787903016622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 877016779
-  ObjectInterest: 1
-  Flags: 1
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 2064450748285998032}
-  ForceRemoteRenderTimeframe: 0
 --- !u!61 &1107417103350690447
 BoxCollider2D:
   m_ObjectHideFlags: 0

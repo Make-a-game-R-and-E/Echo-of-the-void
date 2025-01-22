@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8393790018053286275}
   - component: {fileID: 2810446800877146635}
-  - component: {fileID: 5531766278344750075}
   - component: {fileID: 4411246760778363192}
   m_Layer: 0
   m_Name: PowerCell
@@ -89,24 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5531766278344750075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5453501980560199477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SortKey: 2692160558
-  ObjectInterest: 1
-  Flags: 262145
-  NestedObjects: []
-  NetworkedBehaviours: []
-  ForceRemoteRenderTimeframe: 0
 --- !u!61 &4411246760778363192
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -1,48 +1,41 @@
 using UnityEngine;
-using Fusion;
 
-public class ButtonInteraction : NetworkBehaviour
+public class ButtonInteraction : MonoBehaviour
 {
-    public GameObject buttonOff; // Reference to the "button_off_0" GameObject
-    public GameObject buttonOn;  // Reference to the "button_on_0" GameObject
+    [Header("Button Objects")]
+    public GameObject buttonOff; // "button_off_0" GameObject
+    public GameObject buttonOn;  // "button_on_0" GameObject
 
     private void Start()
     {
-        // Ensure the button starts in the "off" state
+        // Initialize the button in the "off" state
         SetButtonState(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) // Check if the player touches the button
+        if (collision.CompareTag("Player"))
         {
-            if (Object.HasStateAuthority) // Ensure only the authoritative client triggers the RPC
-            {
-                RPC_SetButtonState(true); // Trigger RPC to synchronize the button state
-            }
+            // If the player enters the trigger, turn the button on
+            SetButtonState(true);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")) // Check if the player leaves the button
+        if (collision.CompareTag("Player"))
         {
-            if (Object.HasStateAuthority) // Ensure only the authoritative client triggers the RPC
-            {
-                RPC_SetButtonState(false); // Trigger RPC to synchronize the button state
-            }
+            // If the player exits the trigger, turn the button off
+            SetButtonState(false);
         }
     }
 
-    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
-    private void RPC_SetButtonState(bool isOn)
-    {
-        SetButtonState(isOn); // Update the button state locally
-    }
-
+    /// <summary>
+    /// Enables the "button_on" object and disables the "button_off" object when isOn is true, and vice versa.
+    /// </summary>
     private void SetButtonState(bool isOn)
     {
-        buttonOn.SetActive(isOn);   // Show "button_on" sprite when on
-        buttonOff.SetActive(!isOn); // Show "button_off" sprite when off
+        if (buttonOn != null) buttonOn.SetActive(isOn);
+        if (buttonOff != null) buttonOff.SetActive(!isOn);
     }
 }
