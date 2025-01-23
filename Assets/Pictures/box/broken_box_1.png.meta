@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      broken_box_1_0: 7648733108226605525
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
