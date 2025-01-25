@@ -2586,6 +2586,7 @@ MonoBehaviour:
       m_Action: Pickup
       m_Flags: 0
     m_Flags: 0
+  pickedObject: {fileID: 0}
 --- !u!114 &-8402155434103080287
 MonoBehaviour:
   m_ObjectHideFlags: 0

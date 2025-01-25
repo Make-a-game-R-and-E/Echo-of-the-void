@@ -75,9 +75,5 @@ public class Spawner : MonoBehaviour
         {
             Debug.LogError("Failed to spawn object. Check if the prefab is correctly set.");
         }
-        else
-        {
-            Debug.Log($"Spawned object {spawnedObject.name} under parent {spawnParent?.name}");
-        }
     }
 }

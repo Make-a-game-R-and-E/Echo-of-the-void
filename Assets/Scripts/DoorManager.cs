@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Manages doors that open when all pressure plates are pressed.
+/// Manages doors that open when the required pressure plates are pressed.
 /// </summary>
 public class DoorManager : MonoBehaviour
 {
@@ -17,11 +17,18 @@ public class DoorManager : MonoBehaviour
     [Tooltip("If checked, once the doors are opened they remain open even after leaving the plates.")]
     [SerializeField] private bool stayOpenOnceTriggered = false;
 
-    // Internal array tracking if each plate is pressed
+    [Tooltip("If true, ALL plates must be pressed. If false, ANY plate press will open the door.")]
+    [SerializeField] private bool requireAllPlates = true;
+
+    [Tooltip("If true, the door GameObject(s) will fully disappear (SetActive). " +
+             "If false, the door remains visible but its Collider is disabled (passable).")]
+    [SerializeField] private bool doorDisappearsWhenOpen = true;
+
+    // Internal array tracking if each plate is currently pressed
     private bool[] plateStates;
 
-    // Tracks whether all plates are pressed in the current frame
-    private bool allPlatesPressed = false;
+    // Tracks whether the "open condition" (all/any pressed) was fulfilled last frame
+    private bool doorsCurrentlyOpen = false;
 
     private void Awake()
     {
@@ -31,9 +38,31 @@ public class DoorManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool localAllPressed = true;
+        // 1) Update which plates are currently pressed by any "Player"
+        UpdatePlateStates();
 
-        // Check each plate for "Player" overlaps
+        // 2) Check if the open condition (all pressed or any pressed) is met
+        bool openConditionMet = CheckDoorCondition();
+
+        // 3) If condition is met and doors are not yet open, open them
+        if (openConditionMet && !doorsCurrentlyOpen)
+        {
+            doorsCurrentlyOpen = true;
+            OpenDoors();
+        }
+        // 4) If the condition is NOT met and doors were open, close them (unless they stay open once triggered)
+        else if (!openConditionMet && doorsCurrentlyOpen && !stayOpenOnceTriggered)
+        {
+            doorsCurrentlyOpen = false;
+            CloseDoors();
+        }
+    }
+
+    /// <summary>
+    /// Updates plateStates[i] = true if a player is overlapping that plate, otherwise false.
+    /// </summary>
+    private void UpdatePlateStates()
+    {
         for (int i = 0; i < pressurePlates.Length; i++)
         {
             Collider2D[] hits = Physics2D.OverlapBoxAll(
@@ -53,28 +82,36 @@ public class DoorManager : MonoBehaviour
             }
 
             plateStates[i] = isPressed;
-            if (!isPressed)
-            {
-                localAllPressed = false;
-            }
-        }
-
-        // If all plates are pressed now, and they weren't previously, open the doors
-        if (localAllPressed && !allPlatesPressed)
-        {
-            allPlatesPressed = true;
-            OpenDoors();
-        }
-        // If not all pressed now, but previously were, close the doors unless they should stay open
-        else if (!localAllPressed && allPlatesPressed && !stayOpenOnceTriggered)
-        {
-            allPlatesPressed = false;
-            CloseDoors();
         }
     }
 
     /// <summary>
-    /// Deactivate the doors (open path).
+    /// Checks whether we have met the condition (all pressed or any pressed) to open the doors.
+    /// </summary>
+    private bool CheckDoorCondition()
+    {
+        bool atLeastOnePressed = false;
+        bool allPressed = true;
+
+        for (int i = 0; i < plateStates.Length; i++)
+        {
+            if (plateStates[i])
+            {
+                atLeastOnePressed = true;
+            }
+            else
+            {
+                allPressed = false;
+            }
+        }
+
+        // If requireAllPlates is true, we need *every* plate pressed.
+        // Otherwise, having at least one plate pressed is enough.
+        return requireAllPlates ? allPressed : atLeastOnePressed;
+    }
+
+    /// <summary>
+    /// Deactivate (or disable the collider on) doors.
     /// </summary>
     private void OpenDoors()
     {
@@ -82,14 +119,24 @@ public class DoorManager : MonoBehaviour
         {
             if (door != null)
             {
-                door.SetActive(false);
+                if (doorDisappearsWhenOpen)
+                {
+                    // Make the door fully disappear
+                    door.SetActive(false);
+                }
+                else
+                {
+                    // Keep the door visible but disable its collider so it’s passable
+                    Collider2D doorCollider = door.GetComponent<Collider2D>();
+                    if (doorCollider != null) doorCollider.enabled = false;
+                }
             }
         }
         Debug.Log("Doors opened!");
     }
 
     /// <summary>
-    /// Reactivate the doors (close path).
+    /// Reactivate (or enable the collider on) doors.
     /// </summary>
     private void CloseDoors()
     {
@@ -97,7 +144,17 @@ public class DoorManager : MonoBehaviour
         {
             if (door != null)
             {
-                door.SetActive(true);
+                if (doorDisappearsWhenOpen)
+                {
+                    // Make the door reappear
+                    door.SetActive(true);
+                }
+                else
+                {
+                    // Door is visible so just re-enable the collider
+                    Collider2D doorCollider = door.GetComponent<Collider2D>();
+                    if (doorCollider != null) doorCollider.enabled = true;
+                }
             }
         }
         Debug.Log("Doors closed!");
