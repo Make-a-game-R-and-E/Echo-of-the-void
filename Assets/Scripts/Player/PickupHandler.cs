@@ -10,7 +10,7 @@ public class PickupHandler : MonoBehaviour
     [Header("Input Settings")]
     [SerializeField] private InputAction pickupAction; // Assign this in the Inspector
 
-    private GameObject pickedObject; // The object that the player is currently holding
+    public GameObject pickedObject; // The object that the player is currently holding
 
     private void OnEnable()
     {
