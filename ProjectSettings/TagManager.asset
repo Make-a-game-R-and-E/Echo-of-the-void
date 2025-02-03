@@ -12,6 +12,7 @@ TagManager:
   - Button
   - Floor
   - CheckPoint
+  - Door
   layers:
   - Default
   - TransparentFX
