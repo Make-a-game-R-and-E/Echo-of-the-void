@@ -4,19 +4,19 @@ using UnityEngine;
 public class RobotTrigger : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField]private RobotBlock robotBlock;
+    [SerializeField] private RobotBlock robotBlock;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the other is a "Player"
+        // Check if the other collider is tagged "Player"
         if (other.CompareTag("Player"))
         {
-            // Look for RobotPasscodeUI in the player
+            // Find the RobotPasscodeUI component on the player
             RobotPasscodeUI passUI = other.GetComponentInChildren<RobotPasscodeUI>();
             if (passUI != null)
             {
                 Debug.Log("Player entered the robot's range.");
-                // Pass the robotBlock reference to the UI
+                // Provide the robotBlock reference so the UI can interact with the robot.
                 passUI.SetRobotInRange(robotBlock);
             }
         }
@@ -30,7 +30,7 @@ public class RobotTrigger : MonoBehaviour
             if (passUI != null)
             {
                 Debug.Log("Player left the robot's range.");
-                // Clear reference so the player can no longer interact
+                // Clear the reference so the player can no longer interact with the robot.
                 passUI.SetRobotInRange(null);
             }
         }

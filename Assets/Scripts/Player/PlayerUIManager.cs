@@ -1,21 +1,24 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject uiBox;
+    [SerializeField] private TMP_Text messageText;
 
     private void Start()
     {
-        // Ensure the UI is hidden at the start
         uiBox.SetActive(false);
     }
 
-    public void ShowUI()
+    public void ShowMessage(string message)
     {
         uiBox.SetActive(true);
+        messageText.text = message;
+        Invoke(nameof(HideMessage), 3f); // Hide message after 3 seconds
     }
 
-    public void HideUI()
+    private void HideMessage()
     {
         uiBox.SetActive(false);
     }

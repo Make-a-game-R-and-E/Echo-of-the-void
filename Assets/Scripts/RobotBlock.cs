@@ -10,6 +10,9 @@ public class RobotBlock : MonoBehaviour
     // Local state for whether the door is open
     private bool isOpen = false;
 
+    // Local state for whether the robot is busy (being interacted with)
+    private bool busy = false;
+
     private void Start()
     {
         // Ensure the robot starts in the closed state
@@ -63,5 +66,22 @@ public class RobotBlock : MonoBehaviour
     public bool IsDoorOpen()
     {
         return isOpen;
+    }
+
+    /// <summary>
+    /// Returns whether the robot is currently busy (being interacted with).
+    /// </summary>
+    public bool IsBusy()
+    {
+        return busy;
+    }
+
+    /// <summary>
+    /// Sets the busy state of the robot.
+    /// When true, it indicates that a player is currently interacting with the robot.
+    /// </summary>
+    public void SetBusy(bool value)
+    {
+        busy = value;
     }
 }

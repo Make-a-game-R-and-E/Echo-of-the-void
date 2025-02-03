@@ -10,6 +10,7 @@ public class RobotPasscodeUI : MonoBehaviour
     [SerializeField] private TMP_InputField passcodeInputField;
     [SerializeField] private GameObject successMessage;
     [SerializeField] private GameObject failureMessage;
+    [SerializeField] private TMP_Text statusText; // Text area for status messages
 
     [Header("Settings")]
     [SerializeField] private string correctPasscode = "2204"; // Single correct passcode
@@ -17,8 +18,7 @@ public class RobotPasscodeUI : MonoBehaviour
 
     [Header("Input")]
     [SerializeField]
-    private InputAction interactAction =
-        new InputAction("Interact", InputActionType.Button);
+    private InputAction interactAction = new InputAction("Interact", InputActionType.Button);
 
     [Header("Player Reference")]
     [Tooltip("Assign the PlayerMovement script in the Inspector.")]
@@ -47,10 +47,11 @@ public class RobotPasscodeUI : MonoBehaviour
 
     private void Start()
     {
-        // Initialize UI
+        // Initialize UI elements
         passcodePanel.SetActive(false);
         successMessage.SetActive(false);
         failureMessage.SetActive(false);
+        statusText.text = ""; // Clear the status text at startup
     }
 
     // Called when the interact button is pressed
@@ -58,7 +59,14 @@ public class RobotPasscodeUI : MonoBehaviour
     {
         if (canEnterPasscode)
         {
-            // If the door is already open, don't show the panel
+            // If the robot is already in use by another player, show the busy message
+            if (currentRobotBlock != null && currentRobotBlock.IsBusy())
+            {
+                StartCoroutine(ShowBusyMessage());
+                return;
+            }
+
+            // If the door is already open, no need to interact
             if (currentRobotBlock && currentRobotBlock.IsDoorOpen())
             {
                 Debug.Log("The door is already open, no need to show the panel.");
@@ -69,29 +77,43 @@ public class RobotPasscodeUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Toggles the passcode panel on/off and updates player movement availability.
+    /// Coroutine that displays a busy message in the status text area for a short time.
+    /// </summary>
+    private IEnumerator ShowBusyMessage()
+    {
+        statusText.text = "Robot is busy.";
+        yield return new WaitForSeconds(secondsToWait);
+        statusText.text = "";
+    }
+
+    /// <summary>
+    /// Toggles the passcode panel on/off, updates the player's ability to move, 
+    /// and sets the robot's busy state.
     /// </summary>
     public void TogglePanel()
     {
         bool newState = !passcodePanel.activeSelf;
         passcodePanel.SetActive(newState);
 
+        // Mark the robot as busy when the panel opens, and free it when closed.
+        if (currentRobotBlock != null)
+        {
+            currentRobotBlock.SetBusy(newState);
+        }
+
         if (newState)
         {
             // Panel just opened:
-            // - Reset any old messages/input
+            // Reset input and messages, disable player movement
             passcodeInputField.text = "0000";
             successMessage.SetActive(false);
             failureMessage.SetActive(false);
-
-            // Disable player movement
             if (playerMovement != null)
                 playerMovement.canMove = false;
         }
         else
         {
             // Panel just closed:
-            // - Enable player movement again
             if (playerMovement != null)
                 playerMovement.canMove = true;
         }
@@ -111,7 +133,7 @@ public class RobotPasscodeUI : MonoBehaviour
             // Open the door on the nearby robot
             OpenRobotDoor();
 
-            // Hide the panel (which also re-enables player movement)
+            // Hide the panel (which also re-enables player movement and resets busy state)
             HidePanel();
         }
         else
@@ -133,13 +155,16 @@ public class RobotPasscodeUI : MonoBehaviour
     {
         passcodePanel.SetActive(false);
 
-        // Re-enable player movement
+        // Free the robot if the panel is closed.
+        if (currentRobotBlock != null)
+            currentRobotBlock.SetBusy(false);
+
         if (playerMovement != null)
             playerMovement.canMove = true;
     }
 
     /// <summary>
-    /// Attempt to open the robot door (if we have a reference to one).
+    /// Attempt to open the robot door (if we have a reference).
     /// </summary>
     private void OpenRobotDoor()
     {
@@ -154,7 +179,7 @@ public class RobotPasscodeUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Set which robot the player is in range of.
+    /// Sets which robot the player is in range of.
     /// Passing 'null' means no robot in range.
     /// </summary>
     public void SetRobotInRange(RobotBlock robotBlock)
@@ -164,15 +189,12 @@ public class RobotPasscodeUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Helper property if other scripts need to check if the passcode panel is open.
+    /// Returns true if the passcode panel is open.
     /// </summary>
-    public bool IsPanelOpen
-    {
-        get { return passcodePanel.activeSelf; }
-    }
+    public bool IsPanelOpen => passcodePanel.activeSelf;
 
     /// <summary>
-    /// If the UI has a close button, you can wire this up.
+    /// Closes the panel via the close button (if you have one).
     /// </summary>
     public void OnClickClose()
     {
