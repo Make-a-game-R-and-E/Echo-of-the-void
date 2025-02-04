@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CableManager : MonoBehaviour
+public class CellManager : MonoBehaviour
 {
     public List<string[]> cableOrders = new List<string[]>(); // רשימה של סדרי חיבורים אפשריים
     private string[] currentOrder; // הסדר הנוכחי שהשחקן רואה
+
 
     private void Start()
     {
@@ -14,14 +15,13 @@ public class CableManager : MonoBehaviour
 
     void GenerateCableOrders()
     {
-        cableOrders.Add(new string[] { "Red -> Blue", "Green -> Yellow", "Blue -> Red", "Yellow -> Red" });
-        cableOrders.Add(new string[] { "Red -> Yellow", "Green -> Blue", "Blue -> Green", "Yellow -> Green" });
-        cableOrders.Add(new string[] { "Blue -> Green", "Green -> Blue", "Red -> Yellow", "Yellow -> Red" });
-        cableOrders.Add(new string[] { "Blue -> Yellow", "Green -> Red", "Red -> Green", "Yellow -> Blue" });
-        cableOrders.Add(new string[] { "Yellow -> Red", "Green -> Blue", "Blue -> Green", "Red -> Yellow" });
-        cableOrders.Add(new string[] { "Yellow -> Blue", "Green -> Red", "Blue -> Yellow", "Red -> Green" });
-        cableOrders.Add(new string[] { "Green -> Yellow", "Red -> Blue", "Blue -> Red", "Yellow -> Green" });
-        cableOrders.Add(new string[] { "Green -> Red", "Red -> Green", "Blue -> Yellow", "Yellow -> Blue" });
+        cableOrders.Add(new string[] { "Gray", "Green", "Blue", "Purple", "Red" });
+        cableOrders.Add(new string[] { "Green", "Purple", "Red", "Gray", "Blue" });
+        cableOrders.Add(new string[] { "Blue", "Red", "Gray", "Purple", "Green" });
+        cableOrders.Add(new string[] { "Purple", "Gray", "Green", "Red", "Blue" });
+        cableOrders.Add(new string[] { "Red", "Blue", "Purple", "Green", "Gray" });
+        cableOrders.Add(new string[] { "Gray", "Purple", "Red", "Blue", "Green" });
+        cableOrders.Add(new string[] { "Green", "Blue", "Purple", "Red", "Gray" });
     }
 
       public void SetNewOrder()

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InfoBox : MonoBehaviour
 {
-    public CableManager cableManager;
+    public CellManager cellManager;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -10,7 +10,7 @@ public class InfoBox : MonoBehaviour
         {
             // If the player enters the trigger
             Debug.Log("Player 1 enter the cable order.");
-            cableManager.SetNewOrder(); // Set a new order
+            cellManager.SetNewOrder(); // Set a new order
         }
     }
 
@@ -20,7 +20,7 @@ public class InfoBox : MonoBehaviour
         {
             // If the player exits the trigger
             Debug.Log("Player 1 exut the cable order.");
-            cableManager.SetNewOrder(); // Set a new order
+            cellManager.SetNewOrder(); // Set a new order
         }
     }
 }

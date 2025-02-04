@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CableConnection : MonoBehaviour
+public class CellConnection : MonoBehaviour
 {
-    [SerializeField] CableManager cableManager;
+    [SerializeField] CellManager cellManager;
     [SerializeField] GameObject door;
     List<string> playerConnections = new List<string>();
 
     public void ConnectCable(string cableColor)
     {
         playerConnections.Add(cableColor);
-        if (playerConnections.Count == cableManager.GetCurrentOrder().Length)
+        if (playerConnections.Count == cellManager.GetCurrentOrder().Length)
         {
             CheckConnections();
         }
@@ -18,7 +18,7 @@ public class CableConnection : MonoBehaviour
 
     void CheckConnections()
     {
-        string[] correctOrder = cableManager.GetCurrentOrder();
+        string[] correctOrder = cellManager.GetCurrentOrder();
         for (int i = 0; i < correctOrder.Length; i++)
         {
             if (playerConnections[i] != correctOrder[i])
@@ -39,4 +39,3 @@ public class CableConnection : MonoBehaviour
         // distroy(door);
     }
 }
-
