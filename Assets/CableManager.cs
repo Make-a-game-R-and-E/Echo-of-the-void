@@ -14,8 +14,8 @@ public class CableManager : MonoBehaviour
 
     void GenerateCableOrders()
     {
-        cableOrders.Add(new string[] { "Red -> Blue", "Green -> Yellow", "Blue -> Green", "Yellow -> Red" });
-        cableOrders.Add(new string[] { "Red -> Yellow", "Green -> Blue", "Blue -> Red", "Yellow -> Green" });
+        cableOrders.Add(new string[] { "Red -> Blue", "Green -> Yellow", "Blue -> Red", "Yellow -> Red" });
+        cableOrders.Add(new string[] { "Red -> Yellow", "Green -> Blue", "Blue -> Green", "Yellow -> Green" });
         cableOrders.Add(new string[] { "Blue -> Green", "Green -> Blue", "Red -> Yellow", "Yellow -> Red" });
         cableOrders.Add(new string[] { "Blue -> Yellow", "Green -> Red", "Red -> Green", "Yellow -> Blue" });
         cableOrders.Add(new string[] { "Yellow -> Red", "Green -> Blue", "Blue -> Green", "Red -> Yellow" });
