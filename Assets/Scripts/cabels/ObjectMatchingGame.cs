@@ -64,22 +64,7 @@ public class ObjectMatchingGame : MonoBehaviour
                 }
                 else
                 {
-                    if (Input.GetMouseButtonUp(0))
-                    {
-                        isDragging = false;
-                        RaycastHit2D hit1 = Physics2D.Raycast(endPoint, Vector2.zero);
-
-                        if (hit1.collider != null && hit1.collider.TryGetComponent(out objectMatchForm) && matchId == objectMatchForm.Get_ID())
-                        {
-                            Debug.Log("Correct connection!");
-                            this.enabled = false;  // מכבה את הסקריפט כך שלא ימשיכו לגרור
-                        }
-                        else
-                        {
-                            ResetLine();  // במקום לאפס לגמרי את המונה, נקרא לפונקציה שתעשה זאת מסודר
-                        }
-                    }
-
+                    lineRenderer.positionCount = 0;
                 }
 
                 lineRenderer.positionCount = 2;
@@ -90,13 +75,6 @@ public class ObjectMatchingGame : MonoBehaviour
             Debug.LogError("Camera not assigned for the current player!");
         }
     }
-
-    private void ResetLine()
-{
-    lineRenderer.positionCount = 2;
-    lineRenderer.SetPosition(0, transform.position);
-    lineRenderer.SetPosition(1, transform.position);
-}
 
 }
 
