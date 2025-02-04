@@ -24,16 +24,26 @@ public class DoorManager : MonoBehaviour
              "If false, the door remains visible but its Collider is disabled (passable).")]
     [SerializeField] private bool doorDisappearsWhenOpen = true;
 
-    // Internal array tracking if each plate is currently pressed
-    private bool[] plateStates;
+    [Header("Door Sounds")]
+    [Tooltip("Sound when the door opens.")]
+    [SerializeField] private AudioClip doorOpenSound;
 
-    // Tracks whether the "open condition" (all/any pressed) was fulfilled last frame
-    private bool doorsCurrentlyOpen = false;
+    [Tooltip("Sound when the door closes.")]
+    [SerializeField] private AudioClip doorCloseSound;
+
+    private AudioSource audioSource;
+    private bool[] plateStates;
+    private bool doorsCurrentlyOpen = false; // Tracks whether doors are currently open
 
     private void Awake()
     {
         // Initialize the plate states array
         plateStates = new bool[pressurePlates.Length];
+
+        // Get or add an AudioSource component
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -44,13 +54,12 @@ public class DoorManager : MonoBehaviour
         // 2) Check if the open condition (all pressed or any pressed) is met
         bool openConditionMet = CheckDoorCondition();
 
-        // 3) If condition is met and doors are not yet open, open them
+        // 3) Open or close doors based on the condition
         if (openConditionMet && !doorsCurrentlyOpen)
         {
             doorsCurrentlyOpen = true;
             OpenDoors();
         }
-        // 4) If the condition is NOT met and doors were open, close them (unless they stay open once triggered)
         else if (!openConditionMet && doorsCurrentlyOpen && !stayOpenOnceTriggered)
         {
             doorsCurrentlyOpen = false;
@@ -111,7 +120,7 @@ public class DoorManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Deactivate (or disable the collider on) doors.
+    /// Opens doors by disabling them or their colliders.
     /// </summary>
     private void OpenDoors()
     {
@@ -121,22 +130,24 @@ public class DoorManager : MonoBehaviour
             {
                 if (doorDisappearsWhenOpen)
                 {
-                    // Make the door fully disappear
-                    door.SetActive(false);
+                    door.SetActive(false); // Door disappears
                 }
                 else
                 {
-                    // Keep the door visible but disable its collider so it’s passable
                     Collider2D doorCollider = door.GetComponent<Collider2D>();
-                    if (doorCollider != null) doorCollider.enabled = false;
+                    if (doorCollider != null) doorCollider.enabled = false; // Door becomes passable
                 }
             }
         }
+
+        // Play the open sound
+        PlaySound(doorOpenSound);
+
         Debug.Log("Doors opened!");
     }
 
     /// <summary>
-    /// Reactivate (or enable the collider on) doors.
+    /// Closes doors by re-enabling them or their colliders.
     /// </summary>
     private void CloseDoors()
     {
@@ -146,18 +157,31 @@ public class DoorManager : MonoBehaviour
             {
                 if (doorDisappearsWhenOpen)
                 {
-                    // Make the door reappear
-                    door.SetActive(true);
+                    door.SetActive(true); // Door reappears
                 }
                 else
                 {
-                    // Door is visible so just re-enable the collider
                     Collider2D doorCollider = door.GetComponent<Collider2D>();
-                    if (doorCollider != null) doorCollider.enabled = true;
+                    if (doorCollider != null) doorCollider.enabled = true; // Door becomes solid again
                 }
             }
         }
+
+        // Play the close sound
+        PlaySound(doorCloseSound);
+
         Debug.Log("Doors closed!");
+    }
+
+    /// <summary>
+    /// Plays a sound if the clip is assigned.
+    /// </summary>
+    private void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
     }
 
     /// <summary>

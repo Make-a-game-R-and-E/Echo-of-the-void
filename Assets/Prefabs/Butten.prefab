@@ -223,6 +223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonOff: {fileID: 1709325916120081657}
   buttonOn: {fileID: 2233730137463350212}
+  clickSound: {fileID: 8300000, guid: 1c72153ca3f257241b04831c01ef9143, type: 3}
+  belowSound: {fileID: 8300000, guid: 4226cf5b02bd1ae418b0ab218a504c05, type: 3}
 --- !u!61 &1107417103350690447
 BoxCollider2D:
   m_ObjectHideFlags: 0

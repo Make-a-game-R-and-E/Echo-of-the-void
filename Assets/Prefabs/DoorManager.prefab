@@ -47,3 +47,7 @@ MonoBehaviour:
   doors: []
   pressurePlates: []
   stayOpenOnceTriggered: 0
+  requireAllPlates: 1
+  doorDisappearsWhenOpen: 1
+  doorOpenSound: {fileID: 8300000, guid: 870adad2cfb1c8c458c9b0a9ad40ccb8, type: 3}
+  doorCloseSound: {fileID: 8300000, guid: f12a7342c3d4b3d44b624f05f4a1cb2f, type: 3}
