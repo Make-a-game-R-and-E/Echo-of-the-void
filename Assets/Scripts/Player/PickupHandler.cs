@@ -65,7 +65,7 @@ public class PickupHandler : MonoBehaviour
     /// <summary>
     /// Drop the currently held object.
     /// </summary>
-    private void DropObject()
+    public void DropObject()
     {
         if (pickedObject == null) return;
 

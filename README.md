@@ -63,6 +63,8 @@ This game have a demo version of 'Echo of the void', in this demo you will have 
 
 [character and assets](https://assetstore.unity.com/packages/2d/characters/2d-character-astronaut-182650?srsltid=AfmBOoqcvTou2h_ubAlEcLM6QmlqFiwi2lwFiFwyXcUrh3N8m_V3BSMI)
 
+[thrusters](https://assetstore.unity.com/packages/vfx/particles/2d-jet-engine-effects-jet-engine-flames-jet-engine-vfx-jetstream-253044)
+
 ---
 
 חברי הצוות:
