@@ -65,6 +65,12 @@ This game have a demo version of 'Echo of the void', in this demo you will have 
 
 [thrusters](https://assetstore.unity.com/packages/vfx/particles/2d-jet-engine-effects-jet-engine-flames-jet-engine-vfx-jetstream-253044)
 
+[background music](https://opengameart.org/content/spacebackground-drspacekir-kepler-452b)
+
+[other sounds](https://freesound.org/search/?s=Date+added+(newest+first)&g=1)
+
+ChatGPT for help in code and assets.
+
 ---
 
 חברי הצוות:
