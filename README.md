@@ -16,7 +16,9 @@ This game have a demo version of 'Echo of the void', in this demo you will have 
 
 
 **Controls:**  
-- **Move:** W, A, S, D
+- **Move:** W, A, S, D  and arrows (each player)
+- use Q and L to talk with robot
+- use E and P to pick up objects
 
 **How to Play:**  
 1. Move betweens the rooms of the spaceship.
