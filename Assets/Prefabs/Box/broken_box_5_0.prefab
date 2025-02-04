@@ -147,10 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbcaa7207f2709a46a9993be2fb6450b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyAfterSeconds: 30
+  destroyAfterSeconds: 60
   initialDirection: {x: -1, y: 0}
-  minSpeed: 1
-  maxSpeed: 5
+  minSpeed: 2
+  maxSpeed: 7
   minRotationSpeed: 45
   maxRotationSpeed: 180
   fixedDamage: 20
